@@ -6,8 +6,8 @@
             <p>{{komentar.komentar}}</p>
             <p style="font-size:0.85em;">Ocijena<span class="font-weight-bold rounded-circle ocijena">{{komentar.ocijena}}</span></p>
             <span class="text-muted">{{komentar.created_at}}</span>
-            <tr v-if="id!=komentar.id && komentar.user_id==user_id"> <!-- ako se prikaže text forma za unos komentara, sakrij buttone za brisanje i prikaz forme za izmijenu komentara -->
-                                                                      <!-- prikaže buttone samo ako je korisnik vlasnik komentara,inače nema smisla -->
+            <tr v-if="id!=komentar.id && komentar.user_id==user_id"> 
+                
                 <button class="btn btn-outline-danger btn-sm" @click="brišiKomentar(komentar.id)">Briši</button>
                 <button class="btn btn-outline-primary btn-sm" @click="izmijeniKomentar(komentar.id)">Izmijeni</button>
             </tr>
@@ -52,14 +52,12 @@ export default {
         this.$axios.get('restorani/'+this.restoran_id+'/komentari')
         .then((response)=>{
             this.komentari = response.data;
-            //console.log(response.data);
         });
         this.$root.$on('ažurirajKomentare', () => {
              this.$axios.get('restorani/'+this.restoran_id+'/komentari')
                 .then((response)=>{
                     this.komentari = response.data;
                     for(let i=0;i<this.komentari.length;i++){
-                    console.log(komentari[i].ocijena);
                     }
                 });
             })
@@ -75,10 +73,9 @@ export default {
             this.id = id;
         },
         odustani(){
-            this.id = ''; //ako je id prazan opet će se pojavit buttoni za brisanje i izmijenu a sakrit forma za izmijenu komentara
+            this.id = '';
         },
         ažurirajKomentar(id){
-            console.log(this.novi_komentar);
              this.$axios.put('restorani/'+this.restoran_id+'/komentari/'+ id,{
                 komentar: this.novi_komentar
             })

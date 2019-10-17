@@ -110,15 +110,7 @@ class RestoranController extends Controller
     public function show($id)
     {
         $restoran = Restoran::findOrFail($id);
-
         return response()->json($restoran);
-        /*return [ // ne mogu primjenit RestoraniResource za vraćanje json podataka jer ovdje baza vraća jedan zapis a ne cijeli array , javlja grešku ako pokušam
-            "naziv" => $restoran->naziv,
-            "opis" => $restoran->opis,
-            "cijenaDst" => $restoran->cijenaDst,
-            "minNar" =>  $restoran->minNar
-
-        ];*/ // ili vratiti sve podatke o restoranu sa return $restoran
     }
 
     /**
@@ -142,15 +134,12 @@ class RestoranController extends Controller
     public function update(RestoranRequest $request, $id)
     {
         $restoran = Restoran::find($id);
-        
-
         $restoran->naziv = $request->input('naziv');
         $restoran->opis = $request->input('opis');
         $restoran->cijenaDst = $request->input('cijenaDst');
         $restoran->minNar = $request->input('minNar');
         $restoran->kontakt = $request->input('kontakt');
         $restoran->adresa = $request->input('adresa');
-
 
         $exploded = explode(',',$request->slika);
         $decoded = base64_decode($exploded[1]);
@@ -160,14 +149,11 @@ class RestoranController extends Controller
             File::delete($path);
         }
         $extension = $this->getExtension($exploded[0]);
-        
-
         $slika_naziv = str_random().'.'.$extension;
         $path = public_path() . '/' . $slika_naziv;
         file_put_contents($path,$decoded);
         $restoran->slika_url = $slika_naziv;
-
-
+        
         if($restoran->save()){
             return response()->json($restoran);
         }

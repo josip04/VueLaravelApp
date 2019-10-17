@@ -45,7 +45,6 @@ class KomentariController extends Controller
         $komentar->ocijena = $request->input('ocijena');
         $komentar->restoran_id = $request->input('restoran_id');
         $komentar->user_id = $request->input('user_id');
-        //$komentar->user_id = Auth::user()->id ; 
 
         if($komentar->save()){
             return response()->json($komentar);

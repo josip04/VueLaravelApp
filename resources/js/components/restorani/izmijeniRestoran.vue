@@ -4,7 +4,6 @@
             <div class="row justify-content-center">
             <div  v-if="(naziv || opis || slika.length > 1 )"  class="card" style="width: 18rem;">
                 <img class="card-img-top" v-if="slika.length > 1" :src="slika" max-size>
-                <!--<img class="card-img-top" v-else :src="slika" max-size >-->
             <div class="card-body">
                 <h4 class="card-title"> {{ naziv }} </h4>
                 <p class="card-text">{{opis}}</p>
@@ -79,7 +78,7 @@ export default {
             adresa : '',
             slika:'',
             slika_naziv : '',
-            restorani : [], //za validaciju
+            restorani : [], 
             restoran_id : this.$route.params.id,
             error_naziv :'',
         }
@@ -114,21 +113,18 @@ export default {
                     adresa:this.adresa,
                     kontakt: this.kontakt,
                     slika: this.slika
-                    },
-                    ).then( response => {
-                    console.log(response.data);
+                    })
+                    .then( response => {
                     router.push('/restorani');
-                })
-                .catch( error => {
-                    if(error.response.status == 422) {
-                        let errors = JSON.parse(JSON.stringify(error.response.data.errors));
-                        if(errors.naziv.length>0){
-                            this.error_naziv = errors.naziv.toString().replace(/"[]/g,""); 
-                            console.log(this.error_naziv);
+                    })
+                    .catch( error => {
+                        if(error.response.status == 422) {
+                            let errors = JSON.parse(JSON.stringify(error.response.data.errors));
+                            if(errors.naziv.length>0){
+                                this.error_naziv = errors.naziv.toString().replace(/"[]/g,""); 
+                            }
                         }
-                        //console.log(error.response.data.errors.naziv);
-                    }
-                });
+                    });
             },
         izborSlike (event){
             let image = event.target.files[0];
@@ -138,9 +134,6 @@ export default {
                 reader.readAsDataURL(image);
                 reader.onload = (event) => { 
                 this.slika = event.target.result;
-
-                console.log("event.target.result : " + this.slika);
-                console.log("slika_naziv : " + this.slika_naziv);
                 }
             }
         },
@@ -149,7 +142,6 @@ export default {
             for(let i=0;i<this.restorani.length;i++){
                 if(this.naziv === this.restorani[i].naziv) { 
                    this.error_naziv = "Ime restorana je već zauzeto!";
-                   console.log(this.error_naziv);
                 }
             }
         }

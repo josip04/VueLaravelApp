@@ -19,23 +19,6 @@
                         </div>
                     </div>
                 
-                <!--
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" v-if="rest.slika_url!=null" :src="rest.slika_url" >
-                    <div class="card-body">
-                        <h5 class="card-title" >{{rest.naziv}}</h5>
-                        <p class="card-text">{{rest.opis}}</p>
-                        <p class="card-text text-muted">tel : {{ rest.kontakt}}</p>
-                        <p class="card-text text-muted">adresa : {{ rest.adresa}}</p>
-                        
-                    </div>
-                    <div class="card-body">
-                        <router-link :to="'/restorani/'+ rest.id" class="btn btn-outline-secondary btn-block">Više</router-link>
-                    </div>
-                
-                </div>
-                -->
-                    
             </div>
         </div>
 
@@ -52,16 +35,7 @@ import Header from './Header';
         name : 'Restorani',
         data () {
             return {
-                restorani:[/*{
-                    naziv: '',
-                    opis: '',
-                    created_at: '',
-                    updated_at: '',
-                    cijenaDst: '',
-                    minNar: '',
-                    kontakt: '',
-                },*/
-                ],
+                restorani:[],
                 search:'',
             }
                 
@@ -86,10 +60,9 @@ import Header from './Header';
             this.$axios.get('restorani')
                 .then(response => {
                     this.restorani = response.data;
-                    //console.log(response.data);
                 })
                 .catch(error => {
-                    //console.log(error.response);
+                    //
             });
         },
         components: {

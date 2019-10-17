@@ -58,7 +58,7 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <select name="kategorija" id="#" class="custom-select" v-model="kategorija_id"> <!-- kao value uzmi id kategorije(umjesto naziv) za formu unosa novog proizvoda -->
+                                <select name="kategorija" id="#" class="custom-select" v-model="kategorija_id">
                                     <option for="kategorija" class="form-control" v-for="kat in kategorije" :key="kat.id" :value="kat.id">{{kat.kategorija_naziv}}</option>
                                 </select>
                             </div>
@@ -143,28 +143,26 @@ export default {
                     restoran_id: this.restoran_id,
                 })
                 .then(response => {
-                    this.kategorije = response.data; //ažuriraj tablicu nakon ubacivanja
+                    this.kategorije = response.data;
                 })
             }else{
                 this.error_poruka = 'Kategorija ne smije biti prazna!';
             }
         },
         izbrišiKategoriju(kat_id){
-            console.log( this.restoran_id);
             this.$axios.delete('kategorije/'+ kat_id,{
                 params: {
                     restoran_id: this.restoran_id
                 }
             })
             .then(response => {
-                this.kategorije = response.data; //ažuriraj nakon brisanja
+                this.kategorije = response.data; 
                 this.proizvodi = null;
                 this.prikaži=false;
             });
         },
         ubaciProizvod(){
             this.prikaži = true;
-            console.log(this.kategorija_id);
              if(this.proizvod_naziv.length>0){
                 this.error_poruka2='';
                 this.$axios.post('proizvodi',{
@@ -175,26 +173,22 @@ export default {
                 })
                 .then(response => {
                     this.proizvodi = response.data;
-                    //console.log('Broj proizvoda : ' + this.proizvodi.length);
                 });
             }else{
                 this.error_poruka2 = 'Naziv proizvoda ne smije biti prazan!';
-                console.log(this.error_poruka2); 
             } 
         },
         prikažiProizvod(kat_id){
             this.prikaži = true;
             this.$axios.get('proizvodi/' + kat_id)
             .then(response => {
-                //console.log(kat_id);
                 this.proizvodi = response.data; 
             });
         },
         izbrišiProizvod(proizvod_id){
-            console.log(proizvod_id);
             this.$axios.delete('proizvodi/'+ proizvod_id)
             .then(response => {
-                this.proizvodi = response.data; //ažuriraj nakon brisanja
+                this.proizvodi = response.data; 
             });
         },
     },

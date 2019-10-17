@@ -19,8 +19,6 @@ class AuthController extends Controller
         $korisnik->name=$request->name;
         $korisnik->password=bcrypt($request->password);
         $korisnik->email=$request->email;
-
-        //https://laravel.com/docs/5.8/passport#requesting-tokens
         if($korisnik->save()){
             $response = $http->post('http://localhost:8000/aplikacija/public/oauth/token', [
                 'form_params' => [
@@ -40,7 +38,6 @@ class AuthController extends Controller
         $http = new Client;
 
         $korisnik = User::query()->where('email', $request->email)->first();
-        //https://laravel.com/docs/5.8/hashing
         if($korisnik && (Hash::check($request->password, $korisnik->password))){
             $response = $http->post('http://localhost:8000/aplikacija/public/oauth/token', [
             'form_params' => [

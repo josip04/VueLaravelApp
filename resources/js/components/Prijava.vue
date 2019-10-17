@@ -42,12 +42,11 @@ import router from '../routes';
                 .then(function (response) {
                     let token = response.data.token.access_token;
                     window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-                    store.login(true,response.data.korisnik.name,response.data.korisnik.id);//postavi vrijednosti , ----- localStorage nije reaktivan pa prvi put kad se korisnik logira ako ne prosljedim "konstruktoru" neče se prikazati odmah nego korisnik mora napraviti refresh
+                    store.login(true,response.data.korisnik.name,response.data.korisnik.id);
                     router.push('/restorani');
-                    console.log(response.data);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    //
                 });
             },
         }

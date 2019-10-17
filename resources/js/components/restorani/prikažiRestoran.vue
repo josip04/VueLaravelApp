@@ -70,7 +70,7 @@
 
 
 
-            <!-- Uprvaljanje sadržajem i košarica za korisnika -->
+            <!-- Upravljanje sadržajem i košarica za korisnika -->
             <div class="col-md-3 mt-2">
             <div class="card" v-if="mojiProizvodi.length>0"> 
             <ul class="list-group list-group-flush" v-for="element in mojiProizvodi" :key="element.id">
@@ -154,7 +154,6 @@ export default {
     },
     methods:{
         izbrišiOglas(){
-            //console.log("this.restoran_id : " + this.restoran_id);
             this.$axios.delete('restorani/'+ this.restoran_id )
             .then( response => {
                 router.push('/restorani');
@@ -181,24 +180,19 @@ export default {
                 proizvod.kolicina = 1;
                 this.mojiProizvodi.push(proizvod);
                 this.ažurirajProizvode(proizvod,true,1);
-                //console.log("Kolicina : " +  proizvod.kolicina + " Naziv : " + proizvod.proizvod_naziv);
             }
             if(index>=0){
                 this.mojiProizvodi[index].kolicina++;
                 this.ažurirajProizvode(proizvod,true,1);
-
-                //console.log("Kolicina : " +  this.mojiProizvodi[index].kolicina + " Naziv : " + this.mojiProizvodi[index].proizvod_naziv);
             }
             
         },
         smanjiKolicinu(proizvod){
             let index = this.pronađiProizvod(proizvod);
-            if(index!=undefined){//kada se izbaci proizvod tj. kad je kolicina 0, on više nema indeks a pokušavam izbacit proizvod bez indexa!
                 let kolicina = this.mojiProizvodi[index].kolicina;
                 if(kolicina>1){
                     this.mojiProizvodi[index].kolicina--;
                     this.ažurirajProizvode(proizvod,false,1);
-                    //console.log("Količina : "+this.mojiProizvodi[index].kolicina + ", Naziv : " + this.mojiProizvodi[index].proizvod_naziv);
                 }else{
                     this.izbaciProizvod(proizvod,1);
                 }
@@ -214,14 +208,10 @@ export default {
                     }else{
                         this.ažurirajProizvode(proizvod,false,kol);
                     }
-                    //console.log("Element : "+element.proizvod_naziv);
                 }
                 while(stog2.length!=0){
                     stog.push(stog2.pop());
                 }
-                /* for(let i=0;i<stog.length;i++){
-                    console.log("["+i+"] , Količina : "+stog[i].kolicina+" , Naziv : " +stog[i].proizvod_naziv);
-                } */
         },
         pronađiProizvod(proizvod){
             let length = this.mojiProizvodi.length;
@@ -232,21 +222,14 @@ export default {
             }
         },
         ažurirajProizvode(proizvod,isTrue,kol){
-            //ažuriraj količinu za UI na ovaj način
             this.mojiProizvodi.push(proizvod);
             this.mojiProizvodi.pop();
             
-
-            //ažuriraj ukupnu cijenu
             if(isTrue){
                 this.total+=kol*proizvod.cijena;
             }else{
                 this.total-=kol*proizvod.cijena;
             }
-            /* 
-            for(let i=0;i<this.mojiProizvodi.length;i++){
-                this.total += this.mojiProizvodi[i].kolicina*this.mojiProizvodi[i].cijena;
-            } */
         },
     },
 
@@ -257,11 +240,9 @@ export default {
 
         this.$axios.get('restorani/'+ this.restoran_id )
         .then( response => {
-            console.log(response.data);
             this.restoran = response.data;
         });
 
-        //dohvati sve kategorije i za svaku kategoriju prikaži proizvode 
         this.$axios.get('kategorije/'+ this.restoran_id)
         .then(response => {
             this.kategorije = response.data;
@@ -278,7 +259,6 @@ export default {
                     this.avgOcijena += response.data[ocijena].ocijena;
                 }
             this.avgOcijena/=response.data.length;
-            console.log(this.avgOcijena);
         });
     },
 }

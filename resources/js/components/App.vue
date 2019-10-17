@@ -29,7 +29,7 @@
                 </li>
                 <li class="nav-item">
                 <router-link to="/prijava" @click.native="odjava" class="btn btn-outline-light">Odjava</router-link>
-                <!-- direktan pristup eventu DOM elementa  -->
+                
                 </li>
             </ul>
     </nav>

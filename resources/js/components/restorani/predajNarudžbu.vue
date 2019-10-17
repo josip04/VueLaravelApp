@@ -44,7 +44,6 @@ export default {
         return{
             adresa:'',
             kontakt:'',
-            //user_email:'',
             narudžba:'',
         }
     },
@@ -66,11 +65,10 @@ export default {
                 status: 'u tijeku'
             })
             .then((response) => {
-                console.log(response.data);
                 router.push('/restorani/'+this.restoran_id);
             })
             .catch((error) => {
-                console.log(error);
+               //
             });
         }
     },

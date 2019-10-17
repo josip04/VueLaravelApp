@@ -25,7 +25,7 @@ class RestoranRequest extends FormRequest
     public function rules()
     {
         return [
-            'naziv' => 'required|unique:restorani,naziv|max:45'//poslije unique:restorani treba dodati naziv stupca
+            'naziv' => 'required|unique:restorani,naziv|max:45'
         ];
     }
 

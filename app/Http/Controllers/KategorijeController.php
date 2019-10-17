@@ -46,8 +46,7 @@ class KategorijeController extends Controller
         $kategorija = Kategorija::findOrFail($id);
         if($kategorija->delete()){
             $restoran_id = $request['restoran_id'];
-            $kategorije = Kategorija::where('restoran_id',$restoran_id)->get();//kad se izbriše kategorija ili doda , mora se prosljedit id resotrana tako da se vrate samo one kategorije koje pripadaju tom restoranu
-            //$kategorije = Kategorija::all();
+            $kategorije = Kategorija::where('restoran_id',$restoran_id)->get();
             return response()->json($kategorije);
         }
     }

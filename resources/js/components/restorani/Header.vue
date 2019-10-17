@@ -16,7 +16,7 @@
                             <button type="button" class="btn btn-outline-light">Registracija</button>
                             </router-link>
                         </div>
-                        <!-- ako je user logiran prikaži ovo a sakrije ono gore -->
+                        
                         <div v-if="user_id">
                             <router-link to="/novi">
                             <button type="button" class="btn btn-outline-light">Predaj oglas</button>

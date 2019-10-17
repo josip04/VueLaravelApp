@@ -32,16 +32,6 @@ class NarudzbeController extends Controller
         $narudzba->kontakt = $request->input('kontakt');
         $narudzba->status = $request->input('status');
         $narudzba->restoran_id = $request->input('restoran_id');
-
-        if($narudzba->save()){
-            return response()->json([
-                'poruka' => 'Vaša je narudžba uspješno zaprimljena.'
-            ]);
-        }else{
-            return response()->json([
-                'poruka' => 'Ops , nismo mogli zaprimiti vašu narudžbu.'
-            ]);
-        }
     }
 
     /**
