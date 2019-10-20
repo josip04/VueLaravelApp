@@ -16,7 +16,7 @@
                         <h5 class="card-title border-bottom pb-3">{{rest.naziv}}</h5>
                         <p class="card-text">{{rest.opis}}</p>
                         <!--<router-link :to="'/restorani/'+ rest.id" class="btn btn-outline-secondary btn-block">Više</router-link>-->
-                        <btnVise :rest_id="rest.id"/>
+                        <btnVise :rest_id="rest.id" style="float:right;width:40%;" />
                         </div>
                     </div>
                 
@@ -76,17 +76,6 @@ import btnVise from '../buttons/Vise';
 </script>
 
 <style scoped>
-.btn-outline-secondary{
-    color:#8b057f;
-    border:1px solid #8b057f;
-    width: 25%;
-    float: right;
-}
-.btn-outline-secondary:hover,btn-outline-secondary:active{
-    color:#fff;
-    background-color:#8b057f;
-    border:1px solid #8b057f;
-}
 .margin-top{
     margin-top: 5%;
 }

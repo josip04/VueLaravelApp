@@ -3475,7 +3475,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.btn-outline-secondary[data-v-38fd1e60]{\n    color:#8b057f;\n    border:1px solid #8b057f;\n    width: 25%;\n    float: right;\n}\n.btn-outline-secondary[data-v-38fd1e60]:hover,btn-outline-secondary[data-v-38fd1e60]:active{\n    color:#fff;\n    background-color:#8b057f;\n    border:1px solid #8b057f;\n}\n.margin-top[data-v-38fd1e60]{\n    margin-top: 5%;\n}\n.card-padding-side[data-v-38fd1e60]{\n    padding: 0% 1% 0% 1%;\n}\n.text-italic[data-v-38fd1e60]{\n    font-style: italic;\n}\n@media(max-width: 600px) {\n.btn[data-v-38fd1e60]{\n        width:60%;\n        margin-left:12%;\n}\n.card[data-v-38fd1e60]{\n        max-width:99.5%;\n}\n}\n.card[data-v-38fd1e60]{\n    display: inline; /* zbog preklapanja oglasa */\n}\n", ""]);
+exports.push([module.i, "\n.margin-top[data-v-38fd1e60]{\n    margin-top: 5%;\n}\n.card-padding-side[data-v-38fd1e60]{\n    padding: 0% 1% 0% 1%;\n}\n.text-italic[data-v-38fd1e60]{\n    font-style: italic;\n}\n@media(max-width: 600px) {\n.btn[data-v-38fd1e60]{\n        width:60%;\n        margin-left:12%;\n}\n.card[data-v-38fd1e60]{\n        max-width:99.5%;\n}\n}\n.card[data-v-38fd1e60]{\n    display: inline; /* zbog preklapanja oglasa */\n}\n", ""]);
 
 // exports
 
@@ -23807,7 +23807,10 @@ var render = function() {
                       _vm._v(_vm._s(rest.opis))
                     ]),
                     _vm._v(" "),
-                    _c("btnVise", { attrs: { rest_id: rest.id } })
+                    _c("btnVise", {
+                      staticStyle: { float: "right", width: "40%" },
+                      attrs: { rest_id: rest.id }
+                    })
                   ],
                   1
                 )
