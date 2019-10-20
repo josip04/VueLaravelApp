@@ -24,7 +24,7 @@ import router from '../routes';
         name: 'prijava',
         data(){
             return {
-                storeState: store.state,
+                store: store.state,
                 email: '',
                 password: ''
             }
@@ -42,7 +42,7 @@ import router from '../routes';
                 .then(function (response) {
                     let token = response.data.token.access_token;
                     window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-                    store.login(true,response.data.korisnik.name,response.data.korisnik.id);
+                    store.login(response.data.korisnik.name,response.data.korisnik.id);
                     router.push('/restorani');
                 })
                 .catch(function (error) {

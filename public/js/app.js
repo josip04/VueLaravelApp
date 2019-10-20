@@ -1812,10 +1812,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     odjava: function odjava() {
-      _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].state.logout;
+      _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].state.user_id = '';
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -1855,7 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'prijava',
   data: function data() {
     return {
-      storeState: _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].state,
+      store: _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].state,
       email: '',
       password: ''
     };
@@ -1870,7 +1869,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         var token = response.data.token.access_token;
         window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].login(true, response.data.korisnik.name, response.data.korisnik.id);
+        _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].login(response.data.korisnik.name, response.data.korisnik.id);
         _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push('/restorani');
       })["catch"](function (error) {//
       });
@@ -22746,7 +22745,7 @@ var render = function() {
           "li",
           { staticClass: "nav-item" },
           [
-            !_vm.store.logiran
+            !_vm.store.user_id
               ? _c(
                   "router-link",
                   {
@@ -22764,7 +22763,7 @@ var render = function() {
           "li",
           { staticClass: "nav-item" },
           [
-            !_vm.store.logiran
+            !_vm.store.user_id
               ? _c(
                   "router-link",
                   {
@@ -22779,14 +22778,12 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm.store.id
+      _vm.store.user_id
         ? _c("ul", { staticClass: "navbar-nav ml-auto" }, [
             _c("li", { staticClass: "nav-item" }, [
-              _vm.store.id
-                ? _c("span", { staticClass: "nav-link" }, [
-                    _vm._v(_vm._s(_vm.store.user))
-                  ])
-                : _vm._e()
+              _c("span", { staticClass: "nav-link" }, [
+                _vm._v(_vm._s(_vm.store.user))
+              ])
             ]),
             _vm._v(" "),
             _c(
@@ -41461,19 +41458,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 var store = {
   state: {
-    logiran: false,
     user: '',
     user_id: ''
   },
-  login: function login(logiran, user, user_id) {
-    this.state.logiran = logiran;
+  login: function login(user, user_id) {
     this.state.user = user;
     this.state.user_id = user_id;
-  },
-  logout: function logout() {
-    this.state.logiran = '';
-    this.state.user = '';
-    this.state.user_id = '';
   }
 };
 

@@ -16,16 +16,16 @@
             </ul>
             <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <router-link to="/prijava" v-if="!store.logiran" class="btn btn-outline-light">Prijava</router-link>
+                <router-link to="/prijava" v-if="!store.user_id" class="btn btn-outline-light">Prijava</router-link>
             </li>
             <li class="nav-item">
-                <router-link to="/registracija" v-if="!store.logiran" class="btn btn-outline-light" id="registracija">Registracija</router-link>
+                <router-link to="/registracija" v-if="!store.user_id" class="btn btn-outline-light" id="registracija">Registracija</router-link>
             </li>
             
             </ul>
-            <ul class="navbar-nav ml-auto" v-if="store.id">
+            <ul class="navbar-nav ml-auto" v-if="store.user_id">
                 <li class="nav-item">
-                <span class="nav-link" v-if="store.id">{{ store.user }}</span>
+                <span class="nav-link">{{ store.user }}</span>
                 </li>
                 <li class="nav-item">
                 <router-link to="/prijava" @click.native="odjava" class="btn btn-outline-light">Odjava</router-link>
@@ -48,11 +48,8 @@ import {store} from '../store/store';
         },
         methods : {
             odjava(){
-                store.state.logout;
+                store.state.user_id = '';
             }
-        },
-        mounted() {
-           
         },
         
     }
