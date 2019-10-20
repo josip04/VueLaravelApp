@@ -231,36 +231,31 @@ export default {
                 this.total-=kol*proizvod.cijena;
             }
         },
-    },
 
-
-
-
-    mounted(){
-
-        this.$axios.get('restorani/'+ this.restoran_id )
-        .then( response => {
-            this.restoran = response.data;
-        });
-
-        this.$axios.get('kategorije/'+ this.restoran_id)
-        .then(response => {
-            this.kategorije = response.data;
-        });
-        this.$axios.get('proizvodi/restoran/'+ this.restoran_id)
+        mounted(){
+            this.$axios.get('restorani/'+ this.restoran_id )
             .then( response => {
-                this.proizvodi = JSON.parse(JSON.stringify(response.data)); 
-                this.izabrana_kategorija = 'Sve';
-        });
+                this.restoran = response.data;
+            });
 
-        this.$axios.get('restorani/'+this.restoran_id+'/komentari')
-        .then((response)=>{
-            for(let ocijena in response.data){
-                    this.avgOcijena += response.data[ocijena].ocijena;
-                }
-            this.avgOcijena/=response.data.length;
-        });
-    },
+            this.$axios.get('kategorije/'+ this.restoran_id)
+            .then(response => {
+                this.kategorije = response.data;
+            });
+            this.$axios.get('proizvodi/restoran/'+ this.restoran_id)
+                .then( response => {
+                    this.proizvodi = JSON.parse(JSON.stringify(response.data)); 
+                    this.izabrana_kategorija = 'Sve';
+            });
+
+            this.$axios.get('restorani/'+this.restoran_id+'/komentari')
+            .then((response)=>{
+                for(let ocijena in response.data){
+                        this.avgOcijena += response.data[ocijena].ocijena;
+                    }
+                this.avgOcijena/=response.data.length;
+            });
+    }
 }
 </script>
 
@@ -275,16 +270,7 @@ export default {
     font-size: 0.6em;
     border:none;
 }
-.btn-secondary{
-    color:#8b057f;
-    background-color: #fff;
-    border:1px solid #8b057f;
-}
-.btn-secondary:hover,btn-outline-secondary:active{
-    color:#fff;
-    background-color:#8b057f;
-    border:1px solid #8b057f;
-}
+
 .jumbotron{
     margin-top:2%;
 }

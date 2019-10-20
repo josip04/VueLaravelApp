@@ -15,7 +15,8 @@
                         <div class="card-body">
                         <h5 class="card-title border-bottom pb-3">{{rest.naziv}}</h5>
                         <p class="card-text">{{rest.opis}}</p>
-                        <router-link :to="'/restorani/'+ rest.id" class="btn btn-outline-secondary btn-block">Više</router-link>
+                        <!--<router-link :to="'/restorani/'+ rest.id" class="btn btn-outline-secondary btn-block">Više</router-link>-->
+                        <btnVise :rest_id="rest.id"/>
                         </div>
                     </div>
                 
@@ -30,6 +31,7 @@
 <script>
 import moment from 'moment';
 import Header from './Header';
+import btnVise from '../buttons/Vise';
 
     export default {
         name : 'Restorani',
@@ -67,6 +69,7 @@ import Header from './Header';
         },
         components: {
             Header,
+            btnVise,
         }
         
     }

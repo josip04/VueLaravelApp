@@ -1870,12 +1870,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         var token = response.data.token.access_token;
         window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].login(true, response.data.korisnik.name, response.data.korisnik.id); //postavi vrijednosti , ----- localStorage nije reaktivan pa prvi put kad se korisnik logira ako ne prosljedim "konstruktoru" neče se prikazati odmah nego korisnik mora napraviti refresh
-
+        _store_store__WEBPACK_IMPORTED_MODULE_0__["store"].login(true, response.data.korisnik.name, response.data.korisnik.id);
         _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push('/restorani');
-        console.log(response.data);
-      })["catch"](function (error) {
-        console.log(error);
+      })["catch"](function (error) {//
       });
     }
   }
@@ -1943,6 +1940,33 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Vise',
+  props: ['rest_id'],
+  data: function data() {
+    rest_id: props.rest_id;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/komentari/Komentari.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/komentari/Komentari.vue?vue&type=script&lang=js& ***!
@@ -2003,15 +2027,13 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.$axios.get('restorani/' + this.restoran_id + '/komentari').then(function (response) {
-      _this.komentari = response.data; //console.log(response.data);
+      _this.komentari = response.data;
     });
     this.$root.$on('ažurirajKomentare', function () {
       _this.$axios.get('restorani/' + _this.restoran_id + '/komentari').then(function (response) {
         _this.komentari = response.data;
 
-        for (var i = 0; i < _this.komentari.length; i++) {
-          console.log(komentari[i].ocijena);
-        }
+        for (var i = 0; i < _this.komentari.length; i++) {}
       });
     });
   },
@@ -2027,12 +2049,11 @@ __webpack_require__.r(__webpack_exports__);
       this.id = id;
     },
     odustani: function odustani() {
-      this.id = ''; //ako je id prazan opet će se pojavit buttoni za brisanje i izmijenu a sakrit forma za izmijenu komentara
+      this.id = '';
     },
     ažurirajKomentar: function aUrirajKomentar(id) {
       var _this3 = this;
 
-      console.log(this.novi_komentar);
       this.$axios.put('restorani/' + this.restoran_id + '/komentari/' + id, {
         komentar: this.novi_komentar
       }).then(function (response) {
@@ -2250,20 +2271,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2278,33 +2285,24 @@ __webpack_require__.r(__webpack_exports__);
       adresa: '',
       slika_naziv: '',
       slika: '',
-      //<img class="card-img-top" :src="slika" max-size>
-
-      /*
-      slikaBase64 : '',
-      
-      */
       slika_url: '',
       user_id: _store_store__WEBPACK_IMPORTED_MODULE_1__["store"].state.user_id,
       restorani: [],
-      //za validaciju
       error_naziv: ''
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    // popuni restorani : []
     this.$axios.get('restorani').then(function (response) {
-      _this.restorani = response.data; //console.log(store.restorani);
+      _this.restorani = response.data;
     });
   },
   methods: {
     predajOglas: function predajOglas(event) {
       var _this2 = this;
 
-      event.preventDefault(); //spriječi stvarni submit
-
+      event.preventDefault();
       this.$axios.post('restorani', {
         naziv: this.naziv,
         opis: this.opis,
@@ -2313,20 +2311,9 @@ __webpack_require__.r(__webpack_exports__);
         adresa: this.adresa,
         kontakt: this.kontakt,
         slika: this.slika,
-
-        /*
-        slika: localStorage.getItem('slika_naziv'), //slika_naziv
-        slikaBase64 : localStorage.getItem('slikaBase64')
-        */
         user_id: this.user_id
       }).then(function (response) {
         _routes__WEBPACK_IMPORTED_MODULE_0__["default"].push('/restorani');
-        /*
-        localStorage.removeItem('slika_naziv');
-        localStorage.removeItem('slikaBase64');
-        */
-
-        console.log(response.data);
       })["catch"](function (error) {
         localStorage.removeItem('slika_url');
 
@@ -2335,55 +2322,32 @@ __webpack_require__.r(__webpack_exports__);
 
           if (errors.naziv.length > 0) {
             _this2.error_naziv = errors.naziv.toString().replace(/"[]/g, "");
-            console.log(_this2.error_naziv);
-          } //console.log(error.response.data.errors.naziv);
-
+          }
         }
       });
     },
     izborSlike: function izborSlike(event) {
       var _this3 = this;
 
-      var image = event.target.files[0]; //console.log('event.target OBJ: ' +  event.target);// [object HTMLInputElement]
-      //console.log(datoteka);
-
-      this.slika_naziv = image.name; //napravi update u polju Izaberi sliku...
-
+      var image = event.target.files[0];
+      this.slika_naziv = image.name;
       var reader = new FileReader();
 
       if (image) {
         reader.readAsDataURL(image);
 
         reader.onload = function (event) {
-          //referencira na slikaBase64 unutar Vue komponente , nije radilo samo zbog ovog : = (event) =>
-          _this3.slika = event.target.result; //i zbog ovog reader.result; , zahtjeva HTML input objekt '[object HTMLInputElement]' a ne base64 string ili file[i] objekt
-          //let slikaBase64 = reader.result.replace(/^data:(.*;base64,)?/, '');
-
-          console.log("event.target.result : " + _this3.slika);
-          /*console.log("slikaBase64 : " + slikaBase64);
-          localStorage.setItem('slika_naziv', image.name);
-          localStorage.setItem('slikaBase64', slikaBase64);*/
+          _this3.slika = event.target.result;
         };
       }
-      /*
-      komentirano jer mogu pohranit sliku na server storage => app => public ali ne mogu dohvatit preko domene + storage path iako sam pokušao sve moguće načine
-      npr. https://quickadminpanel.com/blog/file-upload-in-laravel-the-ultimate-guide/   => Storage folder: files are not public?
-      
-      NOVI NAČIN - LINK URL
-        console.log("slika_url : " + slika_url.value);
-      */
-
     },
     validacijaNaziv: function validacijaNaziv(event) {
-      this.error_naziv = ''; //console.log(store.restorani);
+      this.error_naziv = '';
 
       for (var i = 0; i < this.restorani.length; i++) {
         if (this.naziv === this.restorani[i].naziv) {
           this.error_naziv = "Ime restorana je već zauzeto!";
-          console.log(this.error_naziv);
-        } //console.log(store.restorani[i].naziv);
-        //console.log("Ime restorana je već zauzeto!!!!");
-
+        }
       }
     }
   }
@@ -2403,6 +2367,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header */ "./resources/js/components/restorani/Header.vue");
+/* harmony import */ var _buttons_Vise__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../buttons/Vise */ "./resources/js/components/buttons/Vise.vue");
 //
 //
 //
@@ -2433,39 +2398,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Restorani',
   data: function data() {
     return {
-      restorani: [
-        /*{
-        naziv: '',
-        opis: '',
-        created_at: '',
-        updated_at: '',
-        cijenaDst: '',
-        minNar: '',
-        kontakt: '',
-        },*/
-      ],
+      restorani: [],
       search: ''
     };
   },
@@ -2488,12 +2428,13 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.$axios.get('restorani').then(function (response) {
-      _this2.restorani = response.data; //console.log(response.data);
-    })["catch"](function (error) {//console.log(error.response);
+      _this2.restorani = response.data;
+    })["catch"](function (error) {//
     });
   },
   components: {
-    Header: _Header__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Header: _Header__WEBPACK_IMPORTED_MODULE_1__["default"],
+    btnVise: _buttons_Vise__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -2574,7 +2515,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2590,7 +2530,6 @@ __webpack_require__.r(__webpack_exports__);
       slika: '',
       slika_naziv: '',
       restorani: [],
-      //za validaciju
       restoran_id: this.$route.params.id,
       error_naziv: ''
     };
@@ -2626,7 +2565,6 @@ __webpack_require__.r(__webpack_exports__);
         kontakt: this.kontakt,
         slika: this.slika
       }).then(function (response) {
-        console.log(response.data);
         _routes__WEBPACK_IMPORTED_MODULE_0__["default"].push('/restorani');
       })["catch"](function (error) {
         if (error.response.status == 422) {
@@ -2634,9 +2572,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (errors.naziv.length > 0) {
             _this2.error_naziv = errors.naziv.toString().replace(/"[]/g, "");
-            console.log(_this2.error_naziv);
-          } //console.log(error.response.data.errors.naziv);
-
+          }
         }
       });
     },
@@ -2652,8 +2588,6 @@ __webpack_require__.r(__webpack_exports__);
 
         reader.onload = function (event) {
           _this3.slika = event.target.result;
-          console.log("event.target.result : " + _this3.slika);
-          console.log("slika_naziv : " + _this3.slika_naziv);
         };
       }
     },
@@ -2663,7 +2597,6 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < this.restorani.length; i++) {
         if (this.naziv === this.restorani[i].naziv) {
           this.error_naziv = "Ime restorana je već zauzeto!";
-          console.log(this.error_naziv);
         }
       }
     }
@@ -2725,7 +2658,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       adresa: '',
       kontakt: '',
-      //user_email:'',
       narudžba: ''
     };
   },
@@ -2748,10 +2680,8 @@ __webpack_require__.r(__webpack_exports__);
         restoran_id: this.restoran_id,
         status: 'u tijeku'
       }).then(function (response) {
-        console.log(response.data);
         _routes__WEBPACK_IMPORTED_MODULE_0__["default"].push('/restorani/' + _this.restoran_id);
-      })["catch"](function (error) {
-        console.log(error);
+      })["catch"](function (error) {//
       });
     }
   }
@@ -2922,7 +2852,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     izbrišiOglas: function izbriIOglas() {
-      //console.log("this.restoran_id : " + this.restoran_id);
       this.$axios["delete"]('restorani/' + this.restoran_id).then(function (response) {
         _routes__WEBPACK_IMPORTED_MODULE_0__["default"].push('/restorani');
       });
@@ -2949,86 +2878,69 @@ __webpack_require__.r(__webpack_exports__);
       if (index == undefined) {
         proizvod.kolicina = 1;
         this.mojiProizvodi.push(proizvod);
-        this.ažurirajProizvode(proizvod, true, 1); //console.log("Kolicina : " +  proizvod.kolicina + " Naziv : " + proizvod.proizvod_naziv);
+        this.ažurirajProizvode(proizvod, true, 1);
       }
 
       if (index >= 0) {
         this.mojiProizvodi[index].kolicina++;
-        this.ažurirajProizvode(proizvod, true, 1); //console.log("Kolicina : " +  this.mojiProizvodi[index].kolicina + " Naziv : " + this.mojiProizvodi[index].proizvod_naziv);
+        this.ažurirajProizvode(proizvod, true, 1);
       }
     },
     smanjiKolicinu: function smanjiKolicinu(proizvod) {
       var index = this.pronađiProizvod(proizvod);
+      var kolicina = this.mojiProizvodi[index].kolicina;
 
-      if (index != undefined) {
-        //kada se izbaci proizvod tj. kad je kolicina 0, on više nema indeks a pokušavam izbacit proizvod bez indexa!
-        var kolicina = this.mojiProizvodi[index].kolicina;
-
-        if (kolicina > 1) {
-          this.mojiProizvodi[index].kolicina--;
-          this.ažurirajProizvode(proizvod, false, 1); //console.log("Količina : "+this.mojiProizvodi[index].kolicina + ", Naziv : " + this.mojiProizvodi[index].proizvod_naziv);
-        } else {
-          this.izbaciProizvod(proizvod, 1);
-        }
-      }
-    },
-    izbaciProizvod: function izbaciProizvod(proizvod, kol) {
-      var stog = this.mojiProizvodi,
-          stog2 = [];
-
-      while (stog.length != 0) {
-        var element = stog.pop();
-
-        if (element.id != proizvod.id) {
-          stog2.push(element);
-        } else {
-          this.ažurirajProizvode(proizvod, false, kol);
-        } //console.log("Element : "+element.proizvod_naziv);
-
-      }
-
-      while (stog2.length != 0) {
-        stog.push(stog2.pop());
-      }
-      /* for(let i=0;i<stog.length;i++){
-          console.log("["+i+"] , Količina : "+stog[i].kolicina+" , Naziv : " +stog[i].proizvod_naziv);
-      } */
-
-    },
-    pronađiProizvod: function pronaIProizvod(proizvod) {
-      var length = this.mojiProizvodi.length;
-
-      for (var index = 0; index < length; index++) {
-        if (this.mojiProizvodi[index].id == proizvod.id) {
-          return index;
-        }
-      }
-    },
-    ažurirajProizvode: function aUrirajProizvode(proizvod, isTrue, kol) {
-      //ažuriraj količinu za UI na ovaj način
-      this.mojiProizvodi.push(proizvod);
-      this.mojiProizvodi.pop(); //ažuriraj ukupnu cijenu
-
-      if (isTrue) {
-        this.total += kol * proizvod.cijena;
+      if (kolicina > 1) {
+        this.mojiProizvodi[index].kolicina--;
+        this.ažurirajProizvode(proizvod, false, 1);
       } else {
-        this.total -= kol * proizvod.cijena;
+        this.izbaciProizvod(proizvod, 1);
       }
-      /* 
-      for(let i=0;i<this.mojiProizvodi.length;i++){
-          this.total += this.mojiProizvodi[i].kolicina*this.mojiProizvodi[i].cijena;
-      } */
+    }
+  },
+  izbaciProizvod: function izbaciProizvod(proizvod, kol) {
+    var stog = this.mojiProizvodi,
+        stog2 = [];
 
+    while (stog.length != 0) {
+      var element = stog.pop();
+
+      if (element.id != proizvod.id) {
+        stog2.push(element);
+      } else {
+        this.ažurirajProizvode(proizvod, false, kol);
+      }
+    }
+
+    while (stog2.length != 0) {
+      stog.push(stog2.pop());
+    }
+  },
+  pronađiProizvod: function pronaIProizvod(proizvod) {
+    var length = this.mojiProizvodi.length;
+
+    for (var index = 0; index < length; index++) {
+      if (this.mojiProizvodi[index].id == proizvod.id) {
+        return index;
+      }
+    }
+  },
+  ažurirajProizvode: function aUrirajProizvode(proizvod, isTrue, kol) {
+    this.mojiProizvodi.push(proizvod);
+    this.mojiProizvodi.pop();
+
+    if (isTrue) {
+      this.total += kol * proizvod.cijena;
+    } else {
+      this.total -= kol * proizvod.cijena;
     }
   },
   mounted: function mounted() {
     var _this3 = this;
 
     this.$axios.get('restorani/' + this.restoran_id).then(function (response) {
-      console.log(response.data);
       _this3.restoran = response.data;
-    }); //dohvati sve kategorije i za svaku kategoriju prikaži proizvode 
-
+    });
     this.$axios.get('kategorije/' + this.restoran_id).then(function (response) {
       _this3.kategorije = response.data;
     });
@@ -3042,7 +2954,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       _this3.avgOcijena /= response.data.length;
-      console.log(_this3.avgOcijena);
     });
   }
 });
@@ -3200,7 +3111,7 @@ __webpack_require__.r(__webpack_exports__);
           kategorija_naziv: this.nova_kategorija,
           restoran_id: this.restoran_id
         }).then(function (response) {
-          _this2.kategorije = response.data; //ažuriraj tablicu nakon ubacivanja
+          _this2.kategorije = response.data;
         });
       } else {
         this.error_poruka = 'Kategorija ne smije biti prazna!';
@@ -3209,14 +3120,12 @@ __webpack_require__.r(__webpack_exports__);
     izbrišiKategoriju: function izbriIKategoriju(kat_id) {
       var _this3 = this;
 
-      console.log(this.restoran_id);
       this.$axios["delete"]('kategorije/' + kat_id, {
         params: {
           restoran_id: this.restoran_id
         }
       }).then(function (response) {
-        _this3.kategorije = response.data; //ažuriraj nakon brisanja
-
+        _this3.kategorije = response.data;
         _this3.proizvodi = null;
         _this3.prikaži = false;
       });
@@ -3225,7 +3134,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.prikaži = true;
-      console.log(this.kategorija_id);
 
       if (this.proizvod_naziv.length > 0) {
         this.error_poruka2 = '';
@@ -3235,11 +3143,10 @@ __webpack_require__.r(__webpack_exports__);
           kategorija_id: this.kategorija_id,
           restoran_id: this.restoran_id
         }).then(function (response) {
-          _this4.proizvodi = response.data; //console.log('Broj proizvoda : ' + this.proizvodi.length);
+          _this4.proizvodi = response.data;
         });
       } else {
         this.error_poruka2 = 'Naziv proizvoda ne smije biti prazan!';
-        console.log(this.error_poruka2);
       }
     },
     prikažiProizvod: function prikaIProizvod(kat_id) {
@@ -3247,16 +3154,14 @@ __webpack_require__.r(__webpack_exports__);
 
       this.prikaži = true;
       this.$axios.get('proizvodi/' + kat_id).then(function (response) {
-        //console.log(kat_id);
         _this5.proizvodi = response.data;
       });
     },
     izbrišiProizvod: function izbriIProizvod(proizvod_id) {
       var _this6 = this;
 
-      console.log(proizvod_id);
       this.$axios["delete"]('proizvodi/' + proizvod_id).then(function (response) {
-        _this6.proizvodi = response.data; //ažuriraj nakon brisanja
+        _this6.proizvodi = response.data;
       });
     }
   }
@@ -3463,6 +3368,25 @@ exports.push([module.i, "\n.container[data-v-fd821ea6]{\r\n    margin-bottom: 15
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btn-outline-secondary[data-v-1be5a87e]{\r\n    color:#8b057f;\r\n    background-color: #fff;\r\n    border:1px solid #8b057f;\n}\n.btn-secondary[data-v-1be5a87e]:hover,btn-outline-secondary[data-v-1be5a87e]:active{\r\n    color:#fff;\r\n    background-color:#8b057f;\r\n    border:1px solid #8b057f;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/komentari/Komentari.vue?vue&type=style&index=0&id=128d8542&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/komentari/Komentari.vue?vue&type=style&index=0&id=128d8542&scoped=true&lang=css& ***!
@@ -3608,7 +3532,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.ocijena[data-v-07bf57e7]{\r\n    background-color:#8b057f;\r\n    color: floralwhite;\r\n    width: 50px;\r\n    height: 50px;\r\n    padding: 12.5px 3px 3px 3px;\r\n    border-radius: 35px;\r\n    font-size: 0.6em;\r\n    border:none;\n}\n.btn-secondary[data-v-07bf57e7]{\r\n    color:#8b057f;\r\n    background-color: #fff;\r\n    border:1px solid #8b057f;\n}\n.btn-secondary[data-v-07bf57e7]:hover,btn-outline-secondary[data-v-07bf57e7]:active{\r\n    color:#fff;\r\n    background-color:#8b057f;\r\n    border:1px solid #8b057f;\n}\n.jumbotron[data-v-07bf57e7]{\r\n    margin-top:2%;\n}\nspan[data-v-07bf57e7]{\r\n    font-weight: bold;\n}\ntable thead tr th[data-v-07bf57e7]{\r\n    border:none;\n}\n.cardRestoran[data-v-07bf57e7]{\r\n    margin-top: 2%;\r\n    margin-bottom: 80%; /* \"za sticky footer\" */\n}\r\n", ""]);
+exports.push([module.i, "\n.ocijena[data-v-07bf57e7]{\r\n    background-color:#8b057f;\r\n    color: floralwhite;\r\n    width: 50px;\r\n    height: 50px;\r\n    padding: 12.5px 3px 3px 3px;\r\n    border-radius: 35px;\r\n    font-size: 0.6em;\r\n    border:none;\n}\n.jumbotron[data-v-07bf57e7]{\r\n    margin-top:2%;\n}\nspan[data-v-07bf57e7]{\r\n    font-weight: bold;\n}\ntable thead tr th[data-v-07bf57e7]{\r\n    border:none;\n}\n.cardRestoran[data-v-07bf57e7]{\r\n    margin-top: 2%;\r\n    margin-bottom: 80%; /* \"za sticky footer\" */\n}\r\n", ""]);
 
 // exports
 
@@ -21860,6 +21784,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/komentari/Komentari.vue?vue&type=style&index=0&id=128d8542&scoped=true&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/komentari/Komentari.vue?vue&type=style&index=0&id=128d8542&scoped=true&lang=css& ***!
@@ -23088,6 +23042,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "router-link",
+        {
+          staticClass: "btn btn-outline-secondary btn-block",
+          attrs: { to: "/restorani/" + _vm.rest_id }
+        },
+        [_vm._v("\n        Više\n    ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/komentari/Komentari.vue?vue&type=template&id=128d8542&scoped=true&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/komentari/Komentari.vue?vue&type=template&id=128d8542&scoped=true& ***!
@@ -23816,14 +23807,7 @@ var render = function() {
                       _vm._v(_vm._s(rest.opis))
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-outline-secondary btn-block",
-                        attrs: { to: "/restorani/" + rest.id }
-                      },
-                      [_vm._v("Više")]
-                    )
+                    _c("btnVise", { attrs: { rest_id: rest.id } })
                   ],
                   1
                 )
@@ -40437,6 +40421,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/buttons/Vise.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/buttons/Vise.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Vise.vue?vue&type=template&id=1be5a87e&scoped=true& */ "./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true&");
+/* harmony import */ var _Vise_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Vise.vue?vue&type=script&lang=js& */ "./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& */ "./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Vise_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "1be5a87e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/buttons/Vise.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Vise.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=style&index=0&id=1be5a87e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_style_index_0_id_1be5a87e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Vise.vue?vue&type=template&id=1be5a87e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/buttons/Vise.vue?vue&type=template&id=1be5a87e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vise_vue_vue_type_template_id_1be5a87e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/komentari/Komentari.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/components/komentari/Komentari.vue ***!
@@ -41326,10 +41397,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: '/restorani',
     component: __webpack_require__(/*! ./components/restorani/Restorani.vue */ "./resources/js/components/restorani/Restorani.vue")["default"]
-  }, {
-    path: '/restorani/:id',
-    component: __webpack_require__(/*! ./components/restorani/prikažiRestoran.vue */ "./resources/js/components/restorani/prikažiRestoran.vue")["default"]
-  }, {
+  },
+  /*{
+      path:'/restorani/:id',
+      component: require('./components/restorani/prikažiRestoran.vue').default
+  },*/
+  {
     path: '/restorani/:id/izmijeni',
     component: __webpack_require__(/*! ./components/restorani/izmijeniRestoran.vue */ "./resources/js/components/restorani/izmijeniRestoran.vue")["default"]
   }, {
@@ -41356,17 +41429,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/novi',
     component: __webpack_require__(/*! ./components/restorani/NoviOglas.vue */ "./resources/js/components/restorani/NoviOglas.vue")["default"]
-  },
-  /* {  
-      path:'/onama',
-      component: require('./components/Onama.vue').default
-  }, */
-  {
+  }, {
     path: '/prijava',
     component: __webpack_require__(/*! ./components/Prijava.vue */ "./resources/js/components/Prijava.vue")["default"]
   }, {
     path: '/registracija',
     component: __webpack_require__(/*! ./components/Registracija.vue */ "./resources/js/components/Registracija.vue")["default"]
+  }, //buttons
+  {
+    path: '/restorani/:id',
+    component: __webpack_require__(/*! ./components/restorani/prikažiRestoran.vue */ "./resources/js/components/restorani/prikažiRestoran.vue")["default"],
+    name: 'Vise',
+    props: true
   }]
 }));
 
