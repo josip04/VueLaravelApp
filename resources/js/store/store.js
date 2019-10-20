@@ -6,6 +6,7 @@ export const store = {
     login(user,user_id) {
       this.state.user = user;
       this.state.user_id = user_id;
+      
     },
 
   };
