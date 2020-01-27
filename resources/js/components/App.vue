@@ -14,16 +14,19 @@
                 <router-link to="/onama" class="nav-link">O nama</router-link>
             </li> -->
             </ul>
-            <ul class="navbar-nav ml-auto">
+
+
+            <ul class="navbar-nav ml-auto" v-if="!store.logiran">
             <li class="nav-item">
-                <router-link to="/prijava" v-if="!store.user_id" class="btn btn-outline-light">Prijava</router-link>
+                <router-link to="/prijava"  class="btn btn-outline-light">Prijava</router-link>
             </li>
             <li class="nav-item">
-                <router-link to="/registracija" v-if="!store.user_id" class="btn btn-outline-light" id="registracija">Registracija</router-link>
+                <router-link to="/registracija" v-if="!store.logiran" class="btn btn-outline-light" id="registracija">Registracija</router-link>
             </li>
             
             </ul>
-            <ul class="navbar-nav ml-auto" v-if="store.user_id">
+            
+            <ul class="navbar-nav ml-auto" v-else>
                 <li class="nav-item">
                 <span class="nav-link">{{ store.user }}</span>
                 </li>
@@ -48,8 +51,12 @@ import {store} from '../store/store';
         },
         methods : {
             odjava(){
-                store.state.user_id = '';
+                store.state.logiran = false;
+                this.$alertify.success('Logged out!');
             }
+        },
+        mounted() {
+            
         },
         
     }
@@ -58,7 +65,10 @@ import {store} from '../store/store';
 
 <style scoped>
 .navbar {
+    background-color: #2f4858;
+    /*
     background-image: linear-gradient(to right, #ffb100, #ff7830, #f23d51, #c9006d, #8b057f);
+    */
 }
 .navbar .navbar-brand,
 .navbar .navbar-nav .nav-link {

@@ -10,8 +10,8 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
             </div>
-            
-            <button type="submit" class="btn btn btn-block btn-light" style="margin-top:30%;">Login</button>
+           
+            <button type="submit" class="btn btn btn-block btn-light">Login</button>
             </form>
     </div>
 </template>
@@ -24,9 +24,9 @@ import router from '../routes';
         name: 'prijava',
         data(){
             return {
-                store: store.state,
+                storeState: store.state,
                 email: '',
-                password: ''
+                password: '',
             }
         },
         mounted() {
@@ -34,19 +34,43 @@ import router from '../routes';
         },
         methods: {
             prijava(event){
+                let password_error;
+
                 event.preventDefault();
                 this.$axios.post('prijava', {
                     email: this.email,
                     password: this.password
                 })
-                .then(function (response) {
+                .then((response) => {
+                    this.$alertify.error(response.data.Password);
                     let token = response.data.token.access_token;
                     window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-                    store.login(response.data.korisnik.name,response.data.korisnik.id);
+                    store.login(true,response.data.korisnik.name,response.data.korisnik.id);
                     router.push('/restorani');
                 })
-                .catch(function (error) {
-                    //
+                .then((response) => {
+                    this.$root.$emit('userLoggedIn');
+                })
+                .catch( (error) => {
+                    let email_error , pass_error;
+                    if(error.response != undefined){//undefined if password does not exists
+                        if(error.response.data.errors != undefined){
+                            if(error.response.data.errors.email != undefined){
+                                email_error = error.response.data.errors.email[0];
+                            }
+                            if(error.response.data.errors.password != undefined){
+                                pass_error = error.response.data.errors.password[0];
+                            }
+                        }
+                    }
+
+                    if(email_error && pass_error){
+                        this.$alertify.error(email_error);
+                        this.$alertify.error(pass_error);
+                    }else if(email_error){
+                        this.$alertify.error(email_error);
+                    }
+                    
                 });
             },
         }
@@ -60,26 +84,25 @@ import router from '../routes';
 
 <style scoped>
 .container{
-    margin-bottom: 15%;
-    height: 450px;
+    height: 400px;
     margin-top:7%;
     width: 25%;
-    color:#8b057f;
+    color:#2f4858;
     background-color: #fff;
-    border:1px solid #8b057f;
-    padding: 3% 3% 3% 3%;
+    border:1px solid #ca356d;
+    padding: 3% 3% 0% 3%;
     -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
     -moz-box-shadow:    0px 10px 20px 0px rgba(50, 50, 50, 0.52);
     box-shadow:         0px 10px 20px 0px rgba(50, 50, 50, 0.52);/* 
     background-image: linear-gradient(to right, #ffb100, #ff7830, #f23d51, #c9006d, #8b057f); */
 }
 .btn-light{
-    color:#8b057f;
-    border:1px solid #8b057f;
+    color:#ca356d;
+    border:1px solid #ca356d;
 }
 .btn-light:hover,btn-light:active{
     color:#fff;
-    background-color:#8b057f;
+    background-color:#ca356d;
 }
 .textCenter{
     text-align: center;

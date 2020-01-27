@@ -27,7 +27,7 @@
             </div>
             <button type="submit" class="btn btn btn-block btn-danger" v-if="narudžba.length>0">Naruči</button>
             <button type="submit" class="btn btn btn-block btn-danger" v-else disabled>Naruči</button>
-            <router-link :to="'/restorani/'+ this.restoran_id" class="btn btn-outline-dark btn-block">Natrag</router-link>
+            <router-link to="/restorani" class="btn btn-outline-dark btn-block">Natrag</router-link>
             </form>
             </div>
         </div>
@@ -81,5 +81,18 @@ span{
 }
 .container{
     margin-bottom:25%;
+}
+.btn-danger{
+    background-color: #2f4858;
+    border:1px solid #2f4858;
+}
+.badge-danger{
+    font-weight: bold;
+    background-color: #2f4858;
+}
+.btn-outline-dark:hover{
+    color:#fff;
+    background-color: #ca356d;
+    border: #ca356d;
 }
 </style>

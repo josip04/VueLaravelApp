@@ -54,7 +54,10 @@ export default {
     width:60%;
 }
 .jumbotron{
+    background-image: linear-gradient(to right top, #e23d3d, #df374b, #da3457, #d33363, #ca356d);
+    /*
     background-image: linear-gradient(to right, #ffb100, #ff7830, #f23d51, #c9006d, #8b057f);
+    */
     color: floralwhite;
     border-radius: 0;
 }

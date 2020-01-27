@@ -25,6 +25,7 @@ class AuthLoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
+            'email' => 'exists:users,email',
             'password' => 'required'
         ];
     }
@@ -34,7 +35,8 @@ class AuthLoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Moramo znati tvoju email adresu!',
-            'password.required' => 'Lozinka je obavezna!'
+            'email.exists' => 'Nepoznata e-mail adresa!',
+            'password.required' => 'Lozinka je obavezna!',
         ];
     }
 }

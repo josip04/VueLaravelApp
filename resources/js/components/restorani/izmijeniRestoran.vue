@@ -150,7 +150,15 @@ export default {
 </script>
 
 <style  scoped>
-
+.btn-outline-primary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-primary:hover,btn-outline-primary:active{
+    color:#fff;
+    background-color: #ca356d;
+    border:1px solid #ca356d;
+}
 span{
     color: gray;
     font-weight: bold;

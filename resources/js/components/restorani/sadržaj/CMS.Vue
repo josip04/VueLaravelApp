@@ -1,10 +1,10 @@
 <template>
-    <div>
+<div>
         <div class="container mt-2">
             <div id="button">
                 <div class="btn-group" role="group">
-                <router-link :to="'/restorani/'+ this.restoran_id" class="btn btn-outline-dark">Natrag</router-link>
-                <router-link :to="'/restorani/'+this.restoran_id+'/upravljanje-sadržajem/pregled-narudzbi'" class="btn btn-outline-dark">Pregled narudžbi</router-link>
+                <router-link :to="'/restorani/'+ this.restoran_id" class="btn btn-outline-secondary">Natrag</router-link>
+                <router-link :to="'/restorani/'+this.restoran_id+'/upravljanje-sadržajem/pregled-narudzbi'" class="btn btn-outline-secondary">Pregled narudžbi</router-link>
                 </div>
             </div>
             
@@ -27,7 +27,7 @@
                         </td>
 
                         <td>
-                            <button type="submit" @click="ubaciKategoriju()" class="btn btn-outline-primary" >Spremi</button>
+                            <button type="submit" @click="ubaciKategoriju()" class="btn btn-outline-secondary" >Spremi</button>
                         </td>
                     </tr>
 
@@ -77,7 +77,7 @@
                         </td>
 
                         <td>
-                             <button type="submit" @click="ubaciProizvod()" class="btn btn-outline-primary" >Spremi</button>
+                             <button type="submit" @click="ubaciProizvod()" class="btn btn-outline-secondary" >Spremi</button>
                         </td>
                     </tr>
 
@@ -95,7 +95,7 @@
                     <th scope="row">{{proizvod.proizvod_naziv}}</th>
                     <td>{{proizvod.cijena}}</td>
                     <td>{{proizvod.created_at}}</td>
-                    <td><button class="btn btn btn-outline-danger" @click="izbrišiProizvod(proizvod.id)">Briši</button></td>
+                    <td><button class="btn btn-outline-danger" @click="izbrišiProizvod(proizvod.id)">Briši</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -103,7 +103,9 @@
 
         </div>
     </div>
+
 </template>
+
 
 <script>
 export default {
@@ -199,8 +201,27 @@ export default {
 #button{
     margin-bottom: 5%;
 }
+.btn-outline-danger{
+    color:#ca356d;
+    background-color: #fff;
+    border:1px solid #ca356d;
+}
+.btn-outline-danger:hover,btn-outline-danger:active{
+    color:#fff;
+    background-color: #ca356d;
+    border:1px solid #ca356d;
+}
+ .btn-outline-secondary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-secondary:hover,btn-outline-secondary:active{
+    color:#fff;
+    background-color: #2f4858;
+    border:1px solid #2f4858;
+}
 h2{
-    margin-bottom: 2%
+    margin-bottom: 2%;
 }
 span{
     color: red;

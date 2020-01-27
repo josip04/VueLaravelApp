@@ -17,7 +17,7 @@
                 <li class="list-group-item"> <span>{{restoran.kontakt}}</span> </li>
             </ul>
             <div class="card-body">
-               <router-link to="/restorani"  class="btn btn-secondary btn-block">Natrag</router-link>
+               <router-link to="/restorani"  class="btn btn-outline-secondary btn-block">Natrag</router-link>
             </div>
             </div>
 
@@ -26,26 +26,32 @@
             
 
             <!-- Prikaz proizvoda za kategoriju -->
-            <div class="col-md-6" v-if="proizvodi.length>0">
+            <div class="col-md-6 mt-3" v-if="proizvodi.length>0">
             <table class="table">
-                <thead class="thead">
+                <!--<thead class="thead">
                     <tr v-if="izabrana_kategorija">
                         <th colspan="4"><button class="btn btn-outline-dark btn-block" disabled>{{izabrana_kategorija}}</button></th>
                     </tr>
-                </thead>
+                </thead>-->
 
                 <tbody>
                     <tr v-for="proizvod in proizvodi" :key="proizvod.id">
                     <th scope="row">{{proizvod.proizvod_naziv}}</th>
-                    <td>{{proizvod.cijena}}(kn)</td>
-                    <td>
-                        <!-- <div class="form-group">
-                            <input tyoe="text" class="form-control w-50" :id="proizvod.id" placeholder="0">
-                        </div> -->
-                    </td>
+                        <td>{{proizvod.cijena}} kn</td>
                         <td>
-                            <button class="btn btn-outline-secondary" @click="smanjiKolicinu(proizvod)"> - </button>
-                            <button class="btn btn-outline-secondary" @click="dodajProizvod(proizvod)"> + </button>
+                            <!-- <div class="form-group">
+                                <input type="text" class="form-control w-50" :id="proizvod.id" placeholder="0">
+                            </div> -->
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="pl-5">
+                            <div class="btn-group">
+                                <button class="btn btn-outline-secondary" @click="smanjiKolicinu(proizvod)"> ukloni </button>
+                                <button class="btn btn-outline-secondary" @click="dodajProizvod(proizvod)"> dodaj </button>
+                            </div>
+                            
                         </td>
                     </tr>
                 </tbody>
@@ -86,8 +92,8 @@
                 <router-link
                 v-if="restoran.minNar<total"
                 :to="{ name: 'PredajNarudžbu', params: { mojiProizvodi: mojiProizvodi,total:total,restoran_id:restoran_id}}"  
-                class="btn btn-danger btn-block" 
-                style="margin-top:2%;">Naruči
+                class="btn btn-danger btn-block mt-2" 
+                >Naruči
                 </router-link>
             </div>
             </div>
@@ -96,7 +102,7 @@
             <div class="card" style="border:none">
             <div class="card-body" v-if="store.user && restoran.user_id===store.user_id">
                <router-link :to="'/restorani/'+ this.restoran_id + '/upravljanje-sadržajem'" class="btn btn-outline-secondary btn-block">Upravljanje sadržajem</router-link>
-               <router-link :to="'/restorani/'+ this.restoran_id + '/izmijeni'" class="btn btn-outline-primary btn-block">Izmijeni</router-link>
+               <router-link :to="'/restorani/'+ this.restoran_id + '/izmijeni'" class="btn btn-outline-secondary btn-block">Izmijeni</router-link>
                <button type="button" @click="izbrišiOglas()" class="btn btn-outline-danger btn-block"> Briši </button>
                <hr/>
             </div>
@@ -105,8 +111,8 @@
             
 
             <div class="card-body">
-                <button class="btn btn-outline-secondary mr-2 mb-2" style="margin-top:2%;" @click="prikažiSveProizvode()" v-if="proizvodi.length>0"> Sve kategorije </button>
-                <div class="btn-group" style="margin-top:2%;" role="group" v-for="kat in kategorije" :key="kat.id" >
+                <button class="btn btn-outline-secondary mr-2 mb-2" @click="prikažiSveProizvode()" v-if="proizvodi.length>0"> Sve kategorije </button>
+                <div class="btn-group" role="group" v-for="kat in kategorije" :key="kat.id" >
                 <button class="btn btn-outline-secondary mr-2 mb-2"  @click="prikažiProizvode(kat.id,kat.kategorija_naziv)">{{kat.kategorija_naziv}}</button>
                 </div>
             </div>
@@ -152,6 +158,7 @@ export default {
             avgOcijena:0,
         }
     },
+
     methods:{
         izbrišiOglas(){
             this.$axios.delete('restorani/'+ this.restoran_id )
@@ -196,8 +203,6 @@ export default {
                 }else{
                     this.izbaciProizvod(proizvod,1);
                 }
-            }
-            
         },
         izbaciProizvod(proizvod,kol){
                 let stog = this.mojiProizvodi,stog2 = [];
@@ -231,37 +236,43 @@ export default {
                 this.total-=kol*proizvod.cijena;
             }
         },
+    },
+    
 
-        mounted(){
-            this.$axios.get('restorani/'+ this.restoran_id )
+    mounted(){
+
+        this.$axios.get('restorani/'+ this.restoran_id )
+        .then( response => {
+            this.restoran = response.data;
+        });
+
+        this.$axios.get('kategorije/'+ this.restoran_id)
+        .then(response => {
+            this.kategorije = response.data;
+        });
+        this.$axios.get('proizvodi/restoran/'+ this.restoran_id)
             .then( response => {
-                this.restoran = response.data;
-            });
+                this.proizvodi = JSON.parse(JSON.stringify(response.data)); 
+                this.izabrana_kategorija = 'Sve';
+        });
 
-            this.$axios.get('kategorije/'+ this.restoran_id)
-            .then(response => {
-                this.kategorije = response.data;
-            });
-            this.$axios.get('proizvodi/restoran/'+ this.restoran_id)
-                .then( response => {
-                    this.proizvodi = JSON.parse(JSON.stringify(response.data)); 
-                    this.izabrana_kategorija = 'Sve';
-            });
-
-            this.$axios.get('restorani/'+this.restoran_id+'/komentari')
-            .then((response)=>{
-                for(let ocijena in response.data){
-                        this.avgOcijena += response.data[ocijena].ocijena;
-                    }
-                this.avgOcijena/=response.data.length;
-            });
-    }
+        this.$axios.get('restorani/'+this.restoran_id+'/komentari')
+        .then((response)=>{
+            for(let ocijena in response.data){
+                    this.avgOcijena += response.data[ocijena].ocijena;
+                }
+            this.avgOcijena/=response.data.length;
+        });
+    },
 }
 </script>
 
 <style scoped>
+.container{
+    color:#2f4858;
+}
 .ocijena{
-    background-color:#8b057f;
+    background-color:#2f4858;
     color: floralwhite;
     width: 50px;
     height: 50px;
@@ -270,15 +281,39 @@ export default {
     font-size: 0.6em;
     border:none;
 }
+.btn-outline-secondary{
+    color:#2f4858;
+    background-color: #fff;
+    border:1px solid #2f4858;
+}
+.btn-outline-secondary:hover,btn-outline-secondary:active{
+    color:#fff;
+    background-color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-danger{
+    color: #ca356d;
+    border:1px solid #ca356d;
+}
+.btn-outline-danger:hover,btn-outline-danger:active{
+    color:#fff;
+    background-color: #ca356d;
+    border:1px solid #ca356d;
+}
 
+.badge-outline-danger{
+    color:#ca356d;
+    font-weight: bold;
+    background-color: #fff;
+}
 .jumbotron{
     margin-top:2%;
 }
 span{
     font-weight: bold;
 }
-table thead tr th{
-    border:none;
+table, th, tr, td {
+    border: none;
 }
 .cardRestoran{
     margin-top: 2%;

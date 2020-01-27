@@ -9,10 +9,10 @@ export default new VueRouter({
             path:'/restorani',
             component: require('./components/restorani/Restorani.vue').default
         },
-        /*{
+        {
             path:'/restorani/:id',
             component: require('./components/restorani/prikažiRestoran.vue').default
-        },*/
+        },
         {  
             path:'/restorani/:id/izmijeni',
             component: require('./components/restorani/izmijeniRestoran.vue').default
@@ -57,6 +57,10 @@ export default new VueRouter({
         
 
 
+        /* {  
+            path:'/onama',
+            component: require('./components/Onama.vue').default
+        }, */
         {  
             path:'/prijava',
             component: require('./components/Prijava.vue').default
@@ -64,16 +68,6 @@ export default new VueRouter({
         {  
             path:'/registracija',
             component: require('./components/Registracija.vue').default
-        },
-
-
-
-        //buttons
-        {  
-            path:'/restorani/:id',
-            component: require('./components/restorani/prikažiRestoran.vue').default,
-            name:'Vise',
-            props:true,
         },
         
     ]

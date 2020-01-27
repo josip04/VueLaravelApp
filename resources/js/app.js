@@ -1,6 +1,9 @@
 import routes from './routes.js';
 import Vue from 'vue';
 import axios from 'axios';
+import VueAlertify from 'vue-alertify';
+ 
+Vue.use(VueAlertify);
 
 
 require('./bootstrap');

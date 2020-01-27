@@ -65,9 +65,9 @@ import router from '../routes';
     height: 450px;
     margin-top:7%;
     width: 25%;
-    color:#8b057f;
+    color:#2f4858;
     background-color: #fff;
-    border:1px solid #8b057f;
+    border:1px solid #ca356d;
     padding: 3% 3% 3% 3%;
     -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
     -moz-box-shadow:    0px 10px 20px 0px rgba(50, 50, 50, 0.52);
@@ -75,12 +75,12 @@ import router from '../routes';
     background-image: linear-gradient(to right, #ffb100, #ff7830, #f23d51, #c9006d, #8b057f); */
 }
 .btn-light{
-    color:#8b057f;
-    border:1px solid #8b057f;
+    color:#ca356d;
+    border:1px solid #ca356d;
 }
 .btn-light:hover,btn-light:active{
     color:#fff;
-    background-color:#8b057f;
+    background-color:#ca356d;
 }
 .textCenter{
     text-align: center;

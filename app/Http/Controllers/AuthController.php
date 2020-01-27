@@ -55,7 +55,9 @@ class AuthController extends Controller
             ]); 
 
         }else{
-            return response()->json(['poruka' => 'Korisnik ne postoji!']);
+            return response()->json([
+                'Password' => 'Pogrešna lozinka!',
+            ]);
         }
     }
 

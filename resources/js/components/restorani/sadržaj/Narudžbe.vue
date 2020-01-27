@@ -2,7 +2,7 @@
     <div class="container mt-2">
         <div id="button">
             <div class="btn-group" role="group">
-            <router-link :to="'/restorani/'+ this.restoran_id+'/upravljanje-sadržajem'" class="btn btn-outline-dark">Natrag</router-link>
+            <router-link :to="'/restorani/'+ this.restoran_id+'/upravljanje-sadržajem'" class="btn btn-outline-secondary">Natrag</router-link>
             </div>
         </div>
 
@@ -67,7 +67,7 @@
                         </div>
                     </td>
                     <td>
-                        <button type="submit" @click="spremiStatus()" class="btn btn-outline-primary" >Spremi</button>
+                        <button type="submit" @click="spremiStatus()" class="btn btn-outline-secondary" >Spremi</button>
                     </td>
                 </tr>
             </thead>
@@ -126,6 +126,15 @@ export default {
 </script>
 
 <style scoped>
+.btn-outline-secondary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-secondary:hover,btn-outline-secondary:active{
+    color:#fff;
+    background-color: #2f4858;
+    border:1px solid #2f4858;
+}
 #button{
     margin-bottom: 5%;
 }

@@ -8,7 +8,7 @@
             <span class="text-muted">{{komentar.created_at}}</span>
             <tr v-if="id!=komentar.id && komentar.user_id==user_id"> 
                 
-                <button class="btn btn-outline-danger btn-sm" @click="brišiKomentar(komentar.id)">Briši</button>
+                <button class="btn btn-outline-primary btn-sm" @click="brišiKomentar(komentar.id)">Briši</button>
                 <button class="btn btn-outline-primary btn-sm" @click="izmijeniKomentar(komentar.id)">Izmijeni</button>
             </tr>
             <div class="form-group" v-if="komentar.user_id==user_id && id==komentar.id">
@@ -95,15 +95,33 @@ export default {
 </script>
 
 <style scoped>
+.btn-outline-primary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-primary:hover,btn-outline-primary:active{
+    color:#fff;
+    background-color: #ca356d;
+    border:1px solid #ca356d;
+}
+.btn-outline-secondary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-secondary:hover,btn-outline-secondary:active{
+    color:#fff;
+    background-color: #2f4858;
+    border:1px solid #2f4858;
+}
 hr{
     color: inherit;
     margin-top: 30%;
 }
 .jumbotron{
     padding: 5% 5%;
-    color:black;
+    color:#2f4858;
     /* border-radius: 0%; */
-    border:1px solid #8b057f;
+    border:1px solid #2f4858;
     /*background-image: linear-gradient(to right, #ffb100, #ff7830, #f23d51, #c9006d, #8b057f); */
     background-color:white;
 }
@@ -112,7 +130,7 @@ hr{
     font-size: 0.7em;
 }
 .ocijena{
-    background-color:#8b057f;
+    background-color:#2f4858;
     color: floralwhite;
     padding: 3px 6px 3px 6px;
     margin-left:2%;

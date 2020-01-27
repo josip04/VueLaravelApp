@@ -45,7 +45,7 @@ export default {
                 restoran_id: this.restoran_id,
                 user_id: this.user_id
             })
-            .then((response)=>{
+            .then((response) => {
                 this.$root.$emit('ažurirajKomentare')
             });
         }
@@ -54,7 +54,15 @@ export default {
 </script>
 
 <style scopd>
-
+.btn-outline-primary{
+    color:#2f4858;
+    border:1px solid #2f4858;
+}
+.btn-outline-primary:hover,btn-outline-primary:active{
+    color:#fff;
+    background-color: #ca356d;
+    border:1px solid #ca356d;
+}
 button{
     margin-bottom:5%;
 }
