@@ -42,7 +42,9 @@ import router from '../routes';
                     password: this.password
                 })
                 .then((response) => {
-                    this.$alertify.error(response.data.Password);
+                    if(response.data.Password!=undefined){
+                        this.$alertify.error(response.data.Password);
+                    }
                     let token = response.data.token.access_token;
                     window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                     store.login(true,response.data.korisnik.name,response.data.korisnik.id);
@@ -63,7 +65,7 @@ import router from '../routes';
                             }
                         }
                     }
-
+                    
                     if(email_error && pass_error){
                         this.$alertify.error(email_error);
                         this.$alertify.error(pass_error);

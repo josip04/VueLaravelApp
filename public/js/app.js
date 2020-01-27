@@ -5545,7 +5545,9 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       }).then(function (response) {
-        _this.$alertify.error(response.data.Password);
+        if (response.data.Password != undefined) {
+          _this.$alertify.error(response.data.Password);
+        }
 
         var token = response.data.token.access_token;
         window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
@@ -28180,7 +28182,7 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "card", staticStyle: { border: "none" } }, [
-          _vm.store.user && _vm.restoran.user_id === _vm.store.user_id
+          _vm.store.logiran && _vm.restoran.user_id === _vm.store.user_id
             ? _c(
                 "div",
                 { staticClass: "card-body" },

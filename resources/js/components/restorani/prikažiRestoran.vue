@@ -100,7 +100,7 @@
 
             <!-- Upravljanje oglasom - vidljivo samo za vlasnika oglasa koji mora biti logiran -->
             <div class="card" style="border:none">
-            <div class="card-body" v-if="store.user && restoran.user_id===store.user_id">
+            <div class="card-body" v-if="store.logiran && restoran.user_id===store.user_id">
                <router-link :to="'/restorani/'+ this.restoran_id + '/upravljanje-sadržajem'" class="btn btn-outline-secondary btn-block">Upravljanje sadržajem</router-link>
                <router-link :to="'/restorani/'+ this.restoran_id + '/izmijeni'" class="btn btn-outline-secondary btn-block">Izmijeni</router-link>
                <button type="button" @click="izbrišiOglas()" class="btn btn-outline-danger btn-block"> Briši </button>
